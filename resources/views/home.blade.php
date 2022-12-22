@@ -1,4 +1,5 @@
 @include('layouts.header')
+
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
         @include('layouts.navbar')
@@ -12,6 +13,9 @@
                     </div>
                     <br>
                     <div class="container-fluid">
+                    
+
+                     
                     </div>
                 </div>
                 <div class="search">
@@ -21,6 +25,4 @@
         </section>
     </div>
     <!-- /.content -->
- @include('layouts.footer')
-
- 
+    @include('layouts.footer')

@@ -28,7 +28,7 @@ Route::get('/login', function () {
 })->middleware(AuthMiddleware::class);
 
 Route::get('registration_page', function () {
-        return view('registration');
+        return view('registration')->with(array('failure'=>0));
 });
 
 Route::post('login',[AuthController::class,'authenticate']);
@@ -39,3 +39,5 @@ Route::group(['middleware'=>['web','user_auth']],function(){
     Route::get('home',[HomeController::class,'homePage']);  
 });
 Route::get('logout', [AuthController::class, 'logout']);
+Route::get('user_page', [RegistrationController::class, 'viewUserPage']);
+Route::get('user_details',[RegistrationController::class,'loadUserDetails']);

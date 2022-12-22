@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a  class="nav-link"><b >Photos</b></a>
                 </li>
+                <li class="nav-item">
+                    <a href="user_page" class="nav-link"><b >Users</b></a>
+                </li>
 
             </ul>
 

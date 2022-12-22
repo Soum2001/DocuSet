@@ -8,6 +8,12 @@
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
+                @if($failure)
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{$message}}
+                </div>
+                @endif
                 <form action="register" id="form" method="post">
                     @csrf
                     <div class="input-group mb-3">
@@ -26,7 +32,22 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Address" id="address" name="address">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-location"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Phone No" id="phone_no" name="phone_no">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                         <div class="input-group-append">
