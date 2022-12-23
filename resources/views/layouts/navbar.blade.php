@@ -21,7 +21,6 @@
                 <li class="nav-item">
                     <a href="user_page" class="nav-link"><b >Users</b></a>
                 </li>
-
             </ul>
 
             <!-- SEARCH FORM -->

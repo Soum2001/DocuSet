@@ -24,6 +24,30 @@
 
                         <section class="content">
                             <div class="container-fluid">
+                         
+ 
+                            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto" >
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Select User <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item select_gallery" tabindex="-1" onclick="humanResource()" id="human_resource">Human Resource</a>
+                                        <a class="dropdown-item select_gallery" tabindex="-1" >Candidate</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Action <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item select_gallery" tabindex="-1" >Add HR</a>
+                                        <a class="dropdown-item select_gallery" tabindex="-1" >Add Candidate</a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                                </br>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
@@ -32,7 +56,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
+                                              
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <table id="dtblUser" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
@@ -44,13 +68,12 @@
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Phone No</th>
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Address</th>
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">User Type</th>
-                                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
 
                                                                 </tbody>
-                                                            </table>
+                                                            </table>                                     
                                                         </div>
                                                     </div>
                                                 </div>
