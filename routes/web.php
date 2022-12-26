@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserListing;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use App\Models\User;
@@ -33,12 +33,13 @@ Route::get('registration_page', function () {
 
 Route::post('login',[AuthController::class,'authenticate']);
 
-Route::post('register',[RegistrationController::class,'register']);
+Route::post('register',[UserListing::class,'register']);
 
 Route::group(['middleware'=>['web','user_auth']],function(){
     Route::get('home',[HomeController::class,'homePage']);  
 });
 Route::get('logout', [AuthController::class, 'logout']);
-Route::get('user_page', [RegistrationController::class, 'viewUserPage']);
-Route::get('user_details',[RegistrationController::class,'loadUserDetails']);
-Route::get('select_hr',[RegistrationController::class,'selectHr']);
+Route::get('user_listing', [UserListing::class, 'viewUserPage']);
+Route::get('user_details',[UserListing::class,'loadUserDetails']);
+Route::post('submit_hr_details',[UserListing::class,'submitHrDetails']);
+//Route::get('select_hr',[RegistrationController::class,'selectHr']);
