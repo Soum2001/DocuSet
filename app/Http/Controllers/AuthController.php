@@ -19,7 +19,6 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 return redirect()->intended('home');
             } else {
-               
                 return view('login')->with(array('success'=>0,'failure' => 1));
             }
         } else {

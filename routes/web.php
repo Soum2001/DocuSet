@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserDetails;
 use App\Http\Controllers\UserListing;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,4 +44,8 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::get('user_listing', [UserListing::class, 'viewUserPage']);
 Route::get('user_details',[UserListing::class,'loadUserDetails']);
 Route::post('submit_hr_details',[UserListing::class,'submitHrDetails']);
+
+Route::get('candidate_details',[UserDetails::class,'loadCandidateDetails']);
+Route::post('mail_invitation',[UserDetails::class,'mailInvitation']);
+Route::post('edit_user',[UserListing::class,'editUserDetails']);
 //Route::get('select_hr',[RegistrationController::class,'selectHr']);

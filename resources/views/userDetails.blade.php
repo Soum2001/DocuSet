@@ -27,22 +27,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <select class="form-control" id="user_type">
-                                            <option value="">User Type</option>
-                                            <option value="Admin">Admin</option>
-                                            <option value="Human Resource">Human Resource</option>
-                                            <option value="Candidate">Candidate</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select class="form-control" id="action">
-                                            <option value="">Action</option>
-                                            <option value="add_hr">Add HR</option>
-                                            <option value="add_candidate">Add Candidate</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-primary" onclick= "add_hr()">Add HR</button>
+                                        <button type="button" class="btn btn-primary" onclick= "invite_candidate()">Invite Candidate</button>
                                     </div>
                                 </div>
 
@@ -52,14 +37,14 @@
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">User Table</h3>
+                                                <h3 class="card-title">Candidate Table</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <table id="dtblUser" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+                                                            <table id="dtblCandidate" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">Id</th>
@@ -68,7 +53,6 @@
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Phone No</th>
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Address</th>
                                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">User Type</th>
-                                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -86,7 +70,7 @@
                         </section>
                     </div>
                 </div>
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="invite_candidate_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -96,13 +80,13 @@
                                 </button>
                             </div>
 
-                            <form id="hr_details">
+                            <form id="invite_candidate_form">
                                 <div class="modal-body" id="user_details">
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
                                     <input type="hidden" id="user_id" name="user_id">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Full name" id="user_name" name="user_name" style="text-align:center">
+                                        <input type="text" class="form-control" placeholder="Full name" id="user_name" name="user_name" >
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user"></span>
@@ -110,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input type="email" class="form-control" placeholder="Email" id="mail_id" name="mail_id" style="text-align:center">
+                                        <input type="email" class="form-control" placeholder="Email" id="mail_id" name="mail_id" >
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope"></span>
@@ -118,28 +102,17 @@
                                         </div>
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input class="form-control" placeholder="address" id="address" name="address" style="text-align:center">
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <input type="tel" class="form-control" placeholder="Mobile no" id="mob" name="mob" style="text-align:center">
+                                        <input type="text" class="form-control" placeholder="Applying for" id="position" name="position" >
                                         <div class="input-group-append">
                                             <div class="input-group-text">
-                                                <span class="fas fa-phone"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="input-group mb-3" id="password_div">
-                                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" style="text-align:center">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-lock" ></span>
+                                                <span class="fas fa-envelope"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" id="edit_user_details"  onclick="submit_hr_details()">Add HR</button>
+                                <input type="submit" class="btn btn-primary" id="edit_user_details" value="Invite Candidate" onclick="Send_candidate_mail()">
                             </div>
 
 
