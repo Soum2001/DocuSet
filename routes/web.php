@@ -21,31 +21,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
-    return view('login')->with(array('success'=>0,'failure'=>'0'));
+    return view('login')->with(array('success' => 0, 'failure' => '0'));
 })->middleware(AuthMiddleware::class);
 
 Route::get('/login', function () {
-    return view('login')->with(array('success'=>0,'failure'=>'0'));
+    return view('login')->with(array('success' => 0, 'failure' => '0'));
 })->middleware(AuthMiddleware::class);
 
 Route::get('registration_page', function () {
-        return view('registration')->with(array('failure'=>0));
+    return view('registration')->with(array('failure' => 0));
 });
 
-Route::post('login',[AuthController::class,'authenticate']);
+Route::post('login', [AuthController::class, 'authenticate']);
 
-Route::post('register',[UserListing::class,'register']);
+Route::post('register', [UserListing::class, 'register']);
 
-Route::group(['middleware'=>['web','user_auth']],function(){
-    Route::get('home',[HomeController::class,'homePage']);  
+Route::group(['middleware' => ['web', 'user_auth']], function () {
+    Route::get('home', [HomeController::class, 'homePage']);
+    Route::get('user_listing', [UserListing::class, 'viewUserPage']);
+    Route::get('user_details', [UserListing::class, 'loadUserDetails']);
+    Route::post('submit_hr_details', [UserListing::class, 'submitHrDetails']);
+    Route::get('candidate_details', [UserDetails::class, 'loadCandidateDetails']);
+    Route::post('mail_invitation', [UserDetails::class, 'mailInvitation']);
+    Route::post('edit_user', [UserListing::class, 'editUserDetails']);
 });
 Route::get('logout', [AuthController::class, 'logout']);
-Route::get('user_listing', [UserListing::class, 'viewUserPage']);
-Route::get('user_details',[UserListing::class,'loadUserDetails']);
-Route::post('submit_hr_details',[UserListing::class,'submitHrDetails']);
 
-Route::get('candidate_details',[UserDetails::class,'loadCandidateDetails']);
-Route::post('mail_invitation',[UserDetails::class,'mailInvitation']);
-Route::post('edit_user',[UserListing::class,'editUserDetails']);
 //Route::get('select_hr',[RegistrationController::class,'selectHr']);

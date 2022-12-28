@@ -32,7 +32,6 @@ class UserListing extends Controller
     }
     function viewUserPage()
     {
-      
         $check_user_type = User::select('user_type.user_type')
             ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
             ->where('users.user_type_id', '=', Session('id'))
@@ -42,6 +41,7 @@ class UserListing extends Controller
         {
             $user_type = $row->user_type; 
         }
+        
         if($user_type == 'Admin')
         {
             return view('userListing');

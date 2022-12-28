@@ -16,6 +16,6 @@ class HomeController extends Controller
         $id = session('id');
         $user =  User::find($id);
         
-        return view('home')->with(array('select_user' => $user));
+        return view('home');
     }
 }

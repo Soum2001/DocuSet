@@ -14,8 +14,6 @@ class InvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
     protected $data;
-    
-
     /**
      * Create a new message instance.
      *
@@ -41,11 +39,12 @@ class InvitationMail extends Mailable
     {   
        
        
-        return $this->view('invitationmailForm')
+        return $this->view('invitationMailForm')
         ->with([
             'Name' => $this->data['name'],
             'email' => $this->data['email'],
-            'position'=> $this->data['position']
+            'position'=> $this->data['position'],
+            'url'    => $this->data['url']
         ]);
         
       

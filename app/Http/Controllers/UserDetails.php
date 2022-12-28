@@ -60,6 +60,7 @@ class UserDetails extends Controller
             'name' => $request->user_name,
             'email' => $request->email,
             'position' => $request->position,
+            'url'      => "http://localhost:9000/registration_page",
         ];
         Mail::to($request->email)->send(new InvitationMail($mail_details));
 

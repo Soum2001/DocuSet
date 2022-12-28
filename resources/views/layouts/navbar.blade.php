@@ -28,7 +28,7 @@
         </div>
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link" href="../logout" id="login" name="login"><b>Logout</b></a>
+                <a class="nav-link" href="logout" id="logout" name="logout"><b>Logout</b></a>
             </li>
         
       
