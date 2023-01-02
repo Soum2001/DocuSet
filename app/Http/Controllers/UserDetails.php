@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+
+
 use App\Mail\InvitationMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,7 +25,7 @@ class UserDetails extends Controller
         $search_arr     = $request->input('search');
         $search         = $search_arr['value'];
 
-        $user = User::select('user_type.user_type', 'users.name', 'users.address', 'users.email', 'users.Phone_no', 'users.id')
+        $user = User::select('user_type.user_type', 'users.name', 'users.address1', 'users.email', 'users.Phone_no1', 'users.id')
             ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
             ->where('user_type.user_type', '==', 'Candidate')
             ->when($request->input('user_type') != '', function ($query) use ($request) {
@@ -56,24 +60,31 @@ class UserDetails extends Controller
     {
         $mail_details = [
             //'subject' => 'Testing Application OTP',
-
-            'name' => $request->user_name,
-            'email' => $request->email,
-            'position' => $request->position,
-            'url'      => "http://localhost:9000/registration_page",
+            'url'      => "http://localhost:9000/registration_page/".Crypt::encryptString($request->email).'/'.Crypt::encryptString($request->user_name).'/'.Crypt::encryptString($request->position),
         ];
         Mail::to($request->email)->send(new InvitationMail($mail_details));
 
         session()->put('mail', $request->otp_email);
 
-        exit;
         if (Mail::failures()) {
-            $output['dbStatus']  = 'SUCCESS';
-            $output['dbMessage'] = 'Hr details added.';
-        } else {
             $output['dbStatus']  = 'Failure';
             $output['dbMessage'] = 'Error occured';
+            
+        } else {
+            $output['dbStatus']  = 'SUCCESS';
+            $output['dbMessage'] = 'Hr details added.';
         }
         return response()->json($output);
+    }
+    function registerCandidate(Request $request)
+    {
+        $decrypted_email = Crypt::decryptString($request->email);
+        $decrypted_name = Crypt::decryptString($request->user_name);
+        $decrypted_position = Crypt::decryptString($request->position);
+        return view('registration')->with(array('name'=>$decrypted_name,'email'=>$decrypted_email,'position'=>$decrypted_position));
+    }
+    function submitCandidateDetails()
+    {
+        echo('hi');
     }
 }

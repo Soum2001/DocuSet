@@ -30,8 +30,6 @@
                                         <button type="button" class="btn btn-primary" onclick= "invite_candidate()">Invite Candidate</button>
                                     </div>
                                 </div>
-
-
                                 </br>
                                 <div class="row">
                                     <div class="col-12">
@@ -79,7 +77,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
+                            
                             <form id="invite_candidate_form">
                                 <div class="modal-body" id="user_details">
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -114,9 +112,6 @@
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-primary" id="edit_user_details" value="Invite Candidate" onclick="Send_candidate_mail()">
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
@@ -125,3 +120,6 @@
     </div>
     <!-- /.content -->
     @include('layouts.footer')
+    <script src="{{asset('assets/js/datatable.js')}}"></script>
+</body>
+</html>

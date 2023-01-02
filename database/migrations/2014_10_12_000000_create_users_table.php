@@ -16,11 +16,17 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('address');
-            $table->string('Phone_no');
-            $table->string('password');
-            $table->bigInteger('user_type_id')->nullable();      
+            $table->string('email')->unique();  
+            $table->string('password');  
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('phone_no1');
+            $table->string('phone_no2');
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip');
+            $table->bigInteger('user_type_id')->nullable(); 
+              
             $table->timestamps();
         });
     }

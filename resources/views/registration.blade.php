@@ -3,159 +3,165 @@
 <body class="hold-transition register-page">
     <section class="content">
         <div class="container-fluid">
+            <div class="register-logo">
+                <a href="../../index2.html"><b>Registration</b>Page</a>
+            </div>
             <div class="card">
-                <div class="register-logo">
-                    <a href="../../index2.html"><b>Registration</b>Page</a>
-                </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Full name" id="name" name="name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
+                    <p class="login-box-msg">Register a new membership</p>
+                    <form  action= "/register" id="form" method="post">
+                        <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Full name" id="name" name="name" value="{{$name}}" autocomplete="off" readonly>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" id="email" name="email" value="{{$email}}" readonly>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="position" id="position" name="position" value="{{$position}}" readonly>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="email" class="form-control" placeholder="Email" id="email" name="email">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-envelope"></span>
+                        <div class="row">
+                            <h4>Address</h4>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="address1" id="address1" name="address1">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-landmark"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="address2" id="address2" name="address2">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-landmark"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="City" id="city" name="city">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-city"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="State" id="state" name="state">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-state"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4>Phone Number</h4>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="primary contact" id="phone_no1" name="phone_no1">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-phone"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="secondary contact" id="phone_no2" name="phone_no2">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-phone"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Zip" id="zip" name="zip">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Position applied for" id="name" name="name">
-                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <h4>Address</h4>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="address1" id="name" name="">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-landmark"></span>
+                        <div class="row">
+                            <h4>Password</h4>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control" placeholder="Confirm Password" id="re_password" name="re_password">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="address2" id="name" name="name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-landmark"></span>
-                                    </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                    <label for="agreeTerms">
+                                        I agree to the <a href="#">terms</a>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="City" id="name" name="">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-city"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="State" id="name" name="name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-state"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <h4>Phone Number</h4>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="primary contact" id="name" name="">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-phone"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="secondary contact" id="name" name="name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-phone"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Zip" id="name" name="">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                    <div class="row">
-                        <h4>Password</h4>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Password" id="name" name="">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block" id="register" name="register">Register</button>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Confirm Password" id="name" name="name">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block" id="register" name="register">Register</button>
-                        </div>
-                    </div>
+                    </form>
                     <div class="social-auth-links text-center">
                         <p>- OR -</p>
                         <a href="#" class="btn btn-block btn-primary">
@@ -178,4 +184,8 @@
 
     </section>
     </div>
+    @include('layouts.footer')
+    <script src="{{asset('assets/js/datatable.js')}}"></script>
 </body>
+
+</html>

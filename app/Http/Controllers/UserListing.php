@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
+
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
-
+use App\Models\UserType;
 
 class UserListing extends Controller
 {
     function register(Request $request)
     {
+        $output = array('dbStatus' => '', 'dbMessage' => '');
         $input = $request->all();
-        //$user  = new User();
-        //$user->user_type_id  =  3;
-        // print_r($input);
+        $user  = new User();
         // if (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $request->email)) {
         //     return view('registration')->with(array('message' => 'Put valid mail', 'failure' => 1));
         // }
         $hashedPassword  = Hash::make($request->password);
         $input['password']  = $hashedPassword;
-        $input['user_type_id'] = 3;
+        $input['user_type_id']  = 3;
         $user = User::create($input);
 
         if ($user) {
@@ -33,36 +33,34 @@ class UserListing extends Controller
     function viewUserPage()
     {
         $check_user_type = User::select('user_type.user_type')
-            ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
-            ->where('users.user_type_id', '=', Session('id'))
+            ->join('user_type', 'user_type.id', '=', 'users.user_type_id')
+            ->where('users.id', '=', Session('id'))
             ->get();
-        
-        foreach($check_user_type as $row)
-        {
-            $user_type = $row->user_type; 
+          
+        foreach ($check_user_type as $row) {
+            $user_type = $row->user_type;    
         }
-        
-        if($user_type == 'Admin')
-        {
+        if ($user_type == 'Admin') {
             return view('userListing');
-        }elseif($user_type == 'Human Resource')
-        {
+        } elseif ($user_type == 'Human Resource') {
             return view('userDetails');
+        } elseif ($user_type == 'Candidate') {
+            return view('candidateAcademicDetails');
         }
-        
     }
     function loadUserDetails(Request $request)
     {
 
         $output         = array("aaData" => array(), 'dbStatus' => '', 'recordsTotal' => 0, 'recordsFiltered' => 0);
-        //echo($request->input('select_user'));
+        echo ($request->input('user_type'));
         $start          = $request->input('start');
         $limit          = $request->input('length');
         $search_arr     = $request->input('search');
         $search         = $search_arr['value'];
 
-        $user = User::select('user_type.user_type', 'users.name', 'users.address', 'users.email', 'users.Phone_no', 'users.id')
-            ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
+        $user = User::select('user_type.user_type', 'users.name', 'users.address1', 'users.address2', 'users.email', 'users.phone_no1', 'users.phone_no2', 'users.id', 'users.city', 'users.state', 'users.zip')
+            ->join('user_type', 'user_type.id', '=', 'users.user_type_id')
+
             ->where('user_type.user_type', '!=', 'admin')
             ->when($request->input('user_type') != '', function ($query) use ($request) {
                 return $query->where('user_type.user_type', '=', $request->input('user_type'));
@@ -72,7 +70,7 @@ class UserListing extends Controller
         if ($search != "") {
             $user = $user->where(function ($user) use ($search) {
                 $user->where('name', 'like', '%' . $search . '%');
-                $user->orWhere('address', 'like', '%' . $search . '%');
+                $user->orWhere('address1', 'like', '%' . $search . '%');
                 $user->orWhere('email', 'like', '%' . $search . '%');
             });
         }
@@ -93,15 +91,17 @@ class UserListing extends Controller
     }
     function submitHrDetails(Request $request)
     {
-        $user             = new User;
-        $user->name  = $request->user_name;
+        $output = array('dbStatus' => '', 'dbMessage' => '');
+        $input = $request->all();
+        $user  = new User;
+        $hashedPassword  = Hash::make($request->password);
+        $input['password']  = $hashedPassword;
+        $user->name = $request->name;
         $user->email = $request->email;
-        $user->address  = $request->address;
-        $user->phone_no = $request->phn_no;
-        $hashedPassword = Hash::make($request->password);
-        $user->password = $hashedPassword;
-        $user->user_type_id      = 2;
-        if ($user->save()) {
+        $user->password = Hash::make($request->password);
+        $input['user_type_id'] = 2;
+        $user = User::create($input);
+        if ($user) {
             $output['dbStatus']  = 'SUCCESS';
             $output['dbMessage'] = 'Hr details added.';
         } else {
@@ -110,18 +110,16 @@ class UserListing extends Controller
         }
         return response()->json($output);
     }
-    public function editUserDetails(Request $req)
+    public function editUserDetails(Request $request)
     {
         $output = array('dbStatus' => '', 'dbMessage' => '');
-
-        echo($req->id);
-        $update_user = User::where('id', $req->id)
-            ->update(array('name' => $req->user_name, 'email' => $req->email, 'address' => $req->address, 'phone_no' => $req->phn_no));
+        $update_user = User::where('id', $request->user_id)
+            ->update(array('name' => $request->name, 'email' => $request->email, 'address1' => $request->address1, 'address2' => $request->address2, 'phone_no1' => $request->phone_no1, 'phone_no2' => $request->phone_no2, 'city' => $request->city, 'state' => $request->state, 'zip' => $request->zip));
 
         if ($update_user) {
             $output['dbStatus']  = 'SUCCESS';
             $output['dbMessage'] = 'Data Updated.';
-        }else {
+        } else {
             $output['dbStatus']  = 'FAILURE';
             $output['dbMessage'] = 'OOPS! Someting Went Wrong in Edit Operation.';
         }

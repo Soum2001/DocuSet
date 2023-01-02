@@ -42,7 +42,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-primary" onclick= "add_hr()">Add HR</button>
+                                        <button type="button" class="btn btn-primary" onclick="add_hr()">Add HR</button>
                                     </div>
                                 </div>
 
@@ -96,59 +96,165 @@
                                 </button>
                             </div>
 
-                            <form id="hr_details">
-                                <div class="modal-body" id="user_details">
+                            <div class="modal-body" id="user_details">
+                                <form autocomplete="off" class="form-horizontal" id="hr_details" name="hr_details" data-toggle="validator" role="form" novalidate="true">
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
                                     <input type="hidden" id="user_id" name="user_id">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Full name" id="user_name" name="user_name" style="text-align:center">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Full name" id="name" name="name">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-user"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-envelope"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <h4>Address</h4>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="address1" id="address1" name="address1">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-landmark"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="address2" id="address2" name="address2">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-landmark"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="email" class="form-control" placeholder="Email" id="mail_id" name="mail_id" style="text-align:center">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-envelope"></span>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="City" id="city" name="city">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-city"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="State" id="state" name="state">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-state"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input class="form-control" placeholder="address" id="address" name="address" style="text-align:center">
+                                    <div class="row">
+                                        <h4>Phone Number</h4>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="primary contact" id="phone_no1" name="phone_no1">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-phone"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="secondary contact" id="phone_no2" name="phone_no2">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-phone"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="tel" class="form-control" placeholder="Mobile no" id="mob" name="mob" style="text-align:center">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-phone"></span>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Zip" id="zip" name="zip">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" id="password_div">
+                                        <h4>Password</h4>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Password" id="password" name="password">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-lock"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Confirm Password" id="re_password" name="re_password">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-lock"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3" id="password_div">
-                                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" style="text-align:center">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-lock" ></span>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                                <label for="agreeTerms">
+                                                    I agree to the <a href="#">terms</a>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" id="edit_user_details"  onclick="submit_hr_details()">Add HR</button>
+                                </form>
                             </div>
 
-
-
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" id="edit_user_details" onclick="submit_hr_details()">Add HR</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
     <!-- /.content -->
     @include('layouts.footer')
+    <script src="{{asset('assets/js/datatable.js')}}"></script>
+</body>
+
+</html>
