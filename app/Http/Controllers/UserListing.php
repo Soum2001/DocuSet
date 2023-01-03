@@ -45,7 +45,7 @@ class UserListing extends Controller
         } elseif ($user_type == 'Human Resource') {
             return view('userDetails');
         } elseif ($user_type == 'Candidate') {
-            return view('candidateAcademicDetails');
+            return view('candidateAcademicDetail');
         }
     }
     function loadUserDetails(Request $request)

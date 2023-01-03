@@ -83,8 +83,16 @@ class UserDetails extends Controller
         $decrypted_position = Crypt::decryptString($request->position);
         return view('registration')->with(array('name'=>$decrypted_name,'email'=>$decrypted_email,'position'=>$decrypted_position));
     }
-    function submitCandidateDetails()
+    function uploadAcademicsDetails(Request $request)
     {
-        echo('hi');
+        $input = $request->all();
+        //print_r($input);
+        var_dump($request->upload_document);
+        //echo($request['formData1']);
+    }
+    function uploadDocument(Request $request)
+    {
+        $input = $request->all();
+        var_dump($request->upload_document);
     }
 }

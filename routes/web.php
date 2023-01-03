@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserDetails;
@@ -48,6 +49,8 @@ Route::group(['middleware' => ['web', 'user_auth']], function () {
     Route::post('mail_invitation', [UserDetails::class, 'mailInvitation']);
     Route::post('edit_user', [UserListing::class, 'editUserDetails']);
     Route::post('submit_candidate_details', [UserDetails::class, 'submitCandidateDetails']);
+    Route::post('upload_academics_details', [UserDetails::class, 'uploadAcademicsDetails']);
+    Route::post('upload_document', [UserDetails::class, 'uploadDocument']);
 });
 Route::get('logout', [AuthController::class, 'logout']);
 //Route::get('select_hr',[RegistrationController::class,'selectHr']);
