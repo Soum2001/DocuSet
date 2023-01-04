@@ -30,10 +30,10 @@ Route::get('/login', function () {
     return view('login')->with(array('success' => 0, 'failure' => '0'));
 })->middleware(AuthMiddleware::class);
 
-Route::post('registration_page', function () {
+Route::get('registration_page', function () {
     return view('registration')->with(array());
  });
-Route::post('registration_page/{email}/{user_name}/{position}',[UserDetails::class, 'registerCandidate']);
+Route::get('registration_page/{email}/{user_name}/{position}',[UserDetails::class, 'registerCandidate']);
 
 
 Route::post('login', [AuthController::class, 'authenticate']);

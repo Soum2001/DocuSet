@@ -27,7 +27,7 @@
                                             <tr>
                                                 <td>10th</td>
                                                 <td>
-                                                    <select id="board_10th" name="board_10th">
+                                                    <select id="board_10th" name="board[]">
                                                         <option value="">--select--</option>
                                                         <option value="CBSE/ICSE">CBSE/ICSE</option>
                                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -37,14 +37,14 @@
                                                         <option value="up">Uttar Pradesh</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="text" id="percentage_10th" name="percentage_10th" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="passout_year_10th" name="passout_year_10th" placeholder="YYYY" style="width:70px"></td>
+                                                <td><input type="text" id="percentage_10th" name="percentage[]" placeholder="xx.xx%" style="width:70px"></td>
+                                                <td><input type="text" id="passout_year_10th" name="passout_year[]" placeholder="YYYY" style="width:70px"></td>
 
                                             </tr>
                                             <tr>
                                                 <td>12th</td>
                                                 <td>
-                                                    <select id="board_12th" name="board_12th">
+                                                    <select id="board_12th" name="board[]">
                                                         <option value="">--select--</option>
                                                         <option value="CBSE/ICSE">CBSE/ICSE</option>
                                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -54,12 +54,12 @@
                                                         <option value="up">Uttar Pradesh</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="text" id="percentage_12th" name="percentage_12th" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="passout_year_12th" name="passout_year_12th" placeholder="YYYY" style="width:70px"></td>
+                                                <td><input type="text" id="percentage_12th" name="percentage[]" placeholder="xx.xx%" style="width:70px"></td>
+                                                <td><input type="text" id="passout_year_12th" name="passout_year[]" placeholder="YYYY" style="width:70px"></td>
                                             <tr>
                                                 <td>Graduation (BE/B.Tech)</td>
                                                 <td>
-                                                    <select id="graduation" name="graduation" style="width:20%">
+                                                    <select id="graduation" name="board[]" style="width:20%">
                                                         <option value="">--select--</option>
                                                         <option value="BITS - Birla Institute of Technology and Science">BITS - Birla Institute of Technology and Science</option>
                                                         <option value="BPUT - Biju Patnaik University of Technology, Odisha">BPUT - Biju Patnaik University of Technology, Odisha</option>
@@ -68,14 +68,14 @@
                                                         <option value="UPTU - Uttar Pradesh Technical University">UPTU - Uttar Pradesh Technical University</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="text" id="graduation_percentage" name="graduation_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="graduation_passout_year" name="graduation_passout_year" placeholder="YYYY" style="width:70px"></td>
+                                                <td><input type="text" id="graduation_percentage" name="percentage[]" placeholder="xx.xx%" style="width:70px"></td>
+                                                <td><input type="text" id="graduation_passout_year" name="passout_year[]" placeholder="YYYY" style="width:70px"></td>
 
                                             </tr>
                                             <tr>
                                                 <td>Post Graduation (MCA/ M.Tech)</td>
                                                 <td>
-                                                    <select id="post_graduation" name="post_graduation" style="width:20%">
+                                                    <select id="post_graduation" name="board[]" style="width:20%">
                                                         <option value="">--select--</option>
                                                         <option value="BITS - Birla Institute of Technology and Science">BITS - Birla Institute of Technology and Science</option>
                                                         <option value="BPUT - Biju Patnaik University of Technology, Odisha">BPUT - Biju Patnaik University of Technology, Odisha</option>
@@ -84,8 +84,8 @@
                                                         <option value="UPTU - Uttar Pradesh Technical University">UPTU - Uttar Pradesh Technical University</option>
                                                     </select>
                                                 </td>
-                                                <td><input type="text" id="pg_percentage" name="pg_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="pg_passout_year" name="pg_passout_year" placeholder="YYYY" style="width:70px"></td>
+                                                <td><input type="text" id="pg_percentage" name="percentage[]" placeholder="xx.xx%" style="width:70px"></td>
+                                                <td><input type="text" id="pg_passout_year" name="passout_year[]" placeholder="YYYY" style="width:70px"></td>
 
                                             </tr>
                                         </tbody>
@@ -134,7 +134,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>10th-Marksheet <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="marksheet_10th" name="marksheet_10th" class="form-control" multiple="multiple">
+                                                        <input type="file" id="marksheet_10th" name="marksheet[]" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -143,7 +143,7 @@
                                             </tr>
                                             <tr>
                                                 <td>10th-Certificate <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="certificate_10th" name="certificate_10th" class="form-control" multiple="multiple">
+                                                        <input type="file" id="certificate_10th" name="certificate_10th" class="form-control" multiple="multiple">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -151,7 +151,7 @@
                                                 </td>
                                             <tr>
                                                 <td>12th-Marksheet <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="marksheet_12th" name="marksheet_12th" class="form-control">
+                                                        <input type="file" id="marksheet_12th" name="marksheet[]" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -161,7 +161,7 @@
                                             <tr>
                                                 <td>12th-Certificate
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="certificate_12th" name="certificate_12th" class="form-control">
+                                                        <input type="file"  id="certificate_12th" name="certificate_12th" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -171,7 +171,7 @@
                                             <tr>
                                                 <td>Graduation Marksheet
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="graduation_marksheet" name="graduation_marksheet" class="form-control">
+                                                        <input type="file"  id="graduation_marksheet" name="marksheet[]" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -181,7 +181,7 @@
                                             <tr>
                                                 <td>Graduation Certificate
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="graduation_certificate" name="graduation_certificate" class="form-control">
+                                                        <input type="file" id="graduation_certificate" name="graduation_certificate" class="form-control">
                                                     </div>
                                                 <td style="text-align:center">
                                                     <div id="selected_graduation_certificate"></div>
@@ -192,7 +192,7 @@
                                             <tr>
                                                 <td>PostGraduation MarkSheet
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="pg_marksheet" name="pg_marksheet" class="form-control">
+                                                        <input type="file"  id="pg_marksheet" name="marksheet[]" class="form-control">
                                                     </div>
 
                                                 </td>
@@ -203,7 +203,7 @@
                                             <tr>
                                                 <td>PostGraduation Certificate
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="pg_certificate" name="pg_certificate" class="form-control">
+                                                        <input type="file" id="pg_certificate" name="pg_certificate" class="form-control">
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center">
@@ -213,7 +213,7 @@
                                             <tr>
                                                 <td>Upload Resume
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="resume_upload" name="resume_upload" class="form-control" onchange="loadresume(this)">
+                                                        <input type="file" name="filename" id="resume_upload" name="resume_upload" class="form-control" >
                                                     </div>
 
                                                 </td>
@@ -222,7 +222,7 @@
                                             <tr>
                                                 <td>Upload Pan
                                                     <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" class="form-control" id="pan_upload" name="pan_upload" onchange="loadpan(this)">
+                                                        <input type="file" name="filename" class="form-control" id="pan_upload" name="pan_upload" >
                                                     </div>
 
                                                 </td>
@@ -231,7 +231,7 @@
                                             <tr>
                                                 <td>Upload Adhar
                                                     <div class="input-group control-group increment col-xs-4">
-                                                        <input type="file" name="filename[]" class="form-control " id="adhar_upload" name="adhar_upload" onchange="loadadhar(this)">
+                                                        <input type="file" name="filename" class="form-control " id="adhar_upload" name="adhar_upload" >
                                                     </div>
                                                 </td>
                                                 <td style="text-align:center"></td>

@@ -19,6 +19,8 @@ class CandidateAssetType extends Migration
             $table->string('asset_type'); 
             $table->bigInteger('academics_type_id')->nullable(); 
             $table->foreign('academics_type_id')->references('id')->on('academic_type');  
+            $table->bigInteger('user_id')->nullable(); 
+            $table->foreign('user_id')->references('id')->on('users');  
             $table->timestamps();
         });
     }

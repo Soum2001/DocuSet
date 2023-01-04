@@ -1,148 +1,101 @@
 @include('layouts.header')
+
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
         @include('layouts.navbar')
         <section class="content">
             <div class="container-fluid">
-                <form  id="academic_details" method="POST" enctype="multipart/form-data">
-                    <div class="row">
+                <form id="academic_details" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="hid_row_count" id="hid_row_count">
+                    <div class="row" id="qualification_details">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Academics Details Table</h3>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-block btn-outline-primary" id="add_more_qualification">Add <span><i class="fas fa-plus"></i></span></button>
+                                    </div>
                                 </div>
+                                <div class="col-md-12" id="col">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">General Elements</h3>
+                                        </div>
 
-                                <div class="card-body table-responsive p-0" style="height: 300px;">
-                                    <table class="table table-head-fixed text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Class</th>
-                                                <th>Board</th>
-                                                <th>Score</th>
-                                                <th>Passout Year</th>
-                                                <th>Upload Marksheet</th>
-                                                <th>Upload Certificate</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>10th</td>
-                                                <td>
-                                                    <select id="10th_board">
-                                                        <option value="">--select--</option>
-                                                        <option value="cbse_icse">CBSE/ICSE</option>
-                                                        <option value="ap">Andhra Pradesh</option>
-                                                        <option value="delhi">Delhi</option>
-                                                        <option value="karnataka">Karnataka</option>
-                                                        <option value="odisha">Odisha</option>
-                                                        <option value="up">Uttar Pradesh</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" id="10th_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="10th_passout_year" placeholder="YYYY" style="width:70px"></td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="marksheet_10th" class="form-control" multiple="multiple">
-                                                    </div>
+                                        <div class="card-body">
 
-                                                    <div id="selected_10th_marksheet"></div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="certificate_10th"  class="form-control" multiple="multiple">
-                                                    </div>
-                                                    <div id="selected_10th_certificate"></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>12th</td>
-                                                <td>
-                                                    <select id="12th_board">
-                                                        <option value="">--select--</option>
-                                                        <option value="cbse_icse">CBSE/ICSE</option>
-                                                        <option value="ap">Andhra Pradesh</option>
-                                                        <option value="delhi">Delhi</option>
-                                                        <option value="karnataka">Karnataka</option>
-                                                        <option value="odisha">Odisha</option>
-                                                        <option value="up">Uttar Pradesh</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" id="12th_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text"id="12th_passout_year"  placeholder="YYYY" style="width:70px"></td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="marksheet_12th" class="form-control">
-                                                      
-                                                    </div>
-                                                    <div id="selected_12th_marksheet"></div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="certificate_12th" class="form-control">
-                                                        
-                                                    </div>
-                                                    <div id="selected_12th_certificate"></div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
 
-                                                </td>
-                                            <tr>
-                                                <td>Graduation (BE/B.Tech)</td>
-                                                <td>
-                                                    <select id="graduation" style="width:30%">
-                                                        <option value="">--select--</option>
-                                                        <option value="BITS - Birla Institute of Technology and Science">BITS - Birla Institute of Technology and Science</option>
-                                                        <option value="BPUT - Biju Patnaik University of Technology, Odisha">BPUT - Biju Patnaik University of Technology, Odisha</option>
-                                                        <option value="RTU - Rajasthan Technical University">RTU - Rajasthan Technical University</option>
-                                                        <option value="VTU - Visvesvaraya Technological University, Karnataka">VTU - Visvesvaraya Technological University, Karnataka</option>
-                                                        <option value="UPTU - Uttar Pradesh Technical University">UPTU - Uttar Pradesh Technical University</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" id="graduation_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="graduation_passout_year" placeholder="YYYY" style="width:70px"></td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="graduation_marksheet" class="form-control"> 
+                                                    <div class="form-group">
+                                                        <label>Select Qualification</label>
+                                                        <select class="form-control" name="class[]" id="sel_qual_1">
+                                                            <option value="">--select--</option>
+                                                            <option value="10th">10th</option>
+                                                            <option value="12th">12th</option>
+                                                            <option value="graduation">Graduation</option>
+                                                            <option value="post graduation">Post Graduation</option>
+                                                        </select>
                                                     </div>
-                                                    <div id="selected_graduation_marksheet"></div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]"id="graduation_certificate" class="form-control">
-                                                        
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Select Board</label>
+                                                        <select class="form-control" id="sel_board_1" name="board[]">
+                                                            <option value="">--select--</option>
+                                                            <option value="CBSE/ICSE">CBSE/ICSE</option>
+                                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                            <option value="delhi">Delhi</option>
+                                                            <option value="karnataka">Karnataka</option>
+                                                            <option value="odisha">Odisha</option>
+                                                            <option value="up">Uttar Pradesh</option>
+                                                        </select>
                                                     </div>
-                                                    <div id="selected_graduation_certificate"></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Post Graduation (MCA/ M.Tech)</td>
-                                                <td>
-                                                    <select id="post_graduation" style="width:30%">
-                                                        <option value="">--select--</option>
-                                                        <option value="BITS - Birla Institute of Technology and Science">BITS - Birla Institute of Technology and Science</option>
-                                                        <option value="BPUT - Biju Patnaik University of Technology, Odisha">BPUT - Biju Patnaik University of Technology, Odisha</option>
-                                                        <option value="RTU - Rajasthan Technical University">RTU - Rajasthan Technical University</option>
-                                                        <option value="VTU - Visvesvaraya Technological University, Karnataka">VTU - Visvesvaraya Technological University, Karnataka</option>
-                                                        <option value="UPTU - Uttar Pradesh Technical University">UPTU - Uttar Pradesh Technical University</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" id="pg_percentage" placeholder="xx.xx%" style="width:70px"></td>
-                                                <td><input type="text" id="pg_passout_year" placeholder="YYYY" style="width:70px"></td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="pg_marksheet" class="form-control">                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+
+                                                    <div class="form-group">
+                                                        <label>Score</label>
+                                                        <input type="text" class="form-control" id="percentage_1" name="percentage[]" placeholder="Enter ...">
                                                     </div>
-                                                    <div id="selected_pg_marksheet"></div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group control-group increment">
-                                                        <input type="file" name="filename[]" id="pg_certificate" class="form-control">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Passout Year</label>
+                                                        <input type="text" class="form-control" id="passout_year_1" name="passout_year[]" placeholder="Enter ...">
                                                     </div>
-                                                    <div id="selected_pg_certificate"></div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group control-group increment">
+                                                        <input type="file" id="marksheet_1" name="marksheet[]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group control-group increment">
+                                                        <input type="file" id="certificate_1" name="certificate[]" class="form-control" multiple="multiple">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div id="selected_10th_marksheet"></div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div id="selected_10th_marksheet"></div>
+                                                    </div>
+                                                </div> -->
+
+                                        </div>
+
+                                    </div>
                                 </div>
+                                <div id="div_append">
 
+                                </div>
                             </div>
 
                         </div>

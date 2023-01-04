@@ -14,7 +14,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     Successfully Registered.Please Login.
                 </div>
-                @else
+                @elseif($failure)
                 <div class="alert alert-warning alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     Invalid Credentials
