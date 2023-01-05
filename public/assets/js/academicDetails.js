@@ -36,7 +36,8 @@ $(document).ready(function () {
   var files = [];
   var certificate_10th = [];
   var certificate_10th_file = [];
-  $("#certificate_10th").change(function () {
+  $("#certificate_1").change(function () {
+    alert('hi');
     selDiv = document.querySelector("#selected_10th_certificate");
     for (var i = 0; i < this.files.length; i++) {
       if (certificate_10th.indexOf(this.files[i].name) == -1) {
@@ -45,6 +46,7 @@ $(document).ready(function () {
         selDiv.innerHTML += this.files[i].name + "</br>";
       }
     }
+    console.log(certificate_10th_file);
   });
 
   var files = [];
@@ -102,7 +104,7 @@ $(document).ready(function () {
     $("#div_append").append(`<div class="col-md-12" id="col">
       <div class="card card-primary">
           <div class="card-header">
-              <h3 class="card-title">General Elements</h3>
+              <h3 class="card-title">Add Qualification Details</h3>
           </div>
           <div class="card-body">
                   <div class="row">
@@ -165,6 +167,7 @@ $(document).ready(function () {
       </div>
   </div>`);
   })
+  
   $("#upload_document").submit(function (e) {
     e.preventDefault();
     var formData = new FormData(upload_document);

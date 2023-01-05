@@ -76,15 +76,138 @@ $(document).ready(function () {
             { "data": 'id', "name": "id", "className": "text-center", "sWidth": "5%" },
             { "data": "name", "name": "name", "sWidth": "15%" },
             { "data": "email", "name": "email", "sWidth": "20%" },
-            { "data": "Phone_no", "name": "Phone_no", "sWidth": "10%" },
-            { "data": "address", "name": "address", "sWidth": "20%" },
+            { "data": "Phone_no1", "name": "Phone_no1", "sWidth": "10%" },
+            { "data": "address1", "name": "address1", "sWidth": "20%" },
             { "data": "user_type", "name": "user_type", "sWidth": "10%" },
+            {
+                "sName": "action",
+                "data": null,
+                "className": "text-center",
+                "defaultContent": "<button id='view_candidate_document' action ='view_candidate_document' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>"
+            }
 
         ],
+    });
+    $('#dtblCandidate tbody').on('click', 'button[id=view_candidate_document]', function (event) {
+        var data = dtblCandidate.row($(this).parents('tr')).data();
+        var oTable = $('#dtblCandidate').dataTable();   
+        var row;
+        if (event.target.tagName == "BUTTON")
+            row = event.target.parentNode.parentNode;
+        else if (event.target.tagName == "I")
+            row = event.target.parentNode.parentNode.parentNode;
+            console.log(oTable.fnGetData(row));
+         var id = oTable.fnGetData(row).id;
+       
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "candidate_document_page/"+id,
+            type: "post",
+            data: id,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if(data.redirect)
+                {
+                    window.location = data.redirect;
+                }
+
+                //var jsonData = JSON.parse(JSON.stringify(response));
+              
+            },
+        });
+    })
+    $("#candidate_document").click(function(){
+        var user_id = $("#user_id").val();
+        var dtblCandidateDocument = $('#dtblCandidateDocument').DataTable({
+            "lengthMenu": [
+                [10, 15, 45, 75, -1],
+                [10, 15, 45, 75, 'all']
+            ],
+            "pageLength": 10,
+            "bProcessing": true,
+            "bServerSide": true,
+            "bStateSave": false,
+            "bPaginate": true,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": false,
+            "bInfo": true,
+            "bAutoWidth": false,
+            "bDestroy": true,
+            "ajax": {
+                "headers": {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json',
+                },
+                "url": "candidate_document",
+                "type": "post",
+                "data": {user_id:user_id},
+    
+            },
+            "sDom": "<'row'<'col-lg-1 col-md-1 col-sm-1 dtblfilter'>'row'<'col-lg-5 col-md-4 col-sm-4 dtblPtm'>'row'<'col-xs-4 col-sm-3 'l><'col-lg-1 col-md-12 col-sm-12'><'col-md-4 col-sm-4'>f>t<'row'<'col-lg-6 col-md-12 col-sm-12' <'row' <'col-lg-6 col-md-12 col-sm-12' i>>><'col-lg-6 col-md-12 col-sm-12'p>>",
+            "aoColumns": [
+                { "data": 'academic_type', "name": "academic_type", "className": "text-center", "sWidth": "5%" },
+                { "data": "board", "name": "board", "sWidth": "15%" },
+                { "data": "percentage", "name": "percentage", "sWidth": "20%" },
+                { "data": "passout_year", "name": "passout_year", "sWidth": "10%" },
+                {
+                    "sName": "action",
+                    "data": null,
+                    "className": "text-center",
+                    "defaultContent": "<button id='view_marksheet' action ='view_marksheet' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>"
+                },
+                {
+                    "sName": "action",
+                    "data": null,
+                    "className": "text-center",
+                    "defaultContent": "<button id='view_certificate' action ='view_certificate' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>"
+                }
+    
+            ],
+        });
+    });
+    $('#dtblCandidateDocument tbody').on('click', 'button[id=view_marksheet]', function (event) {
+       // var data = dtblCandidateDocument.row($(this).parents('tr')).data();
+      
+        var oTable = $('#dtblCandidateDocument').dataTable();
+        var row;
+        if (event.target.tagName == "BUTTON")
+            row = event.target.parentNode.parentNode;
+        else if (event.target.tagName == "I")
+            row = event.target.parentNode.parentNode.parentNode;
+        $(row).addClass('success');
+        var academic_type = oTable.fnGetData(row).academic_type;
+        var user_id = $("#user_id").val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "candidate_marksheet_page/"+user_id+'/'+academic_type,
+            type: "post",
+            data: user_id,
+            processData: false,
+            contentType: false,
+             success: function (response) {
+                $("#document_modal").modal("show");
+                jQuery('#document').html(response);  
+            //     if(data.redirect)
+            //     {
+            //         window.location = data.redirect;
+            //     }
+
+            //     //var jsonData = JSON.parse(JSON.stringify(response));
+              
+             },
+        });
+
     });
     $('#dtblUser tbody').on('click', 'button[action=edit_user]', function (event) {
         var data = dtblUser.row($(this).parents('tr')).data();
         var oTable = $('#dtblUser').dataTable();
+        var id = oTable.fnGetData(row).id;
         var row;
         if (event.target.tagName == "BUTTON")
             row = event.target.parentNode.parentNode;

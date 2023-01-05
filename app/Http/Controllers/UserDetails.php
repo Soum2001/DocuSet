@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\InvitationMail;
 use App\Models\User;
 use App\Models\CandidateAcademics;
+use App\Models\CandidateAssetType;
+use App\Models\CandidateDetails;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+
 
 
 use Illuminate\Http\Request;
@@ -29,19 +32,16 @@ class UserDetails extends Controller
 
         $user = User::select('user_type.user_type', 'users.name', 'users.address1', 'users.email', 'users.Phone_no1', 'users.id')
             ->join('user_type', 'users.user_type_id', '=', 'user_type.id')
-            ->where('user_type.user_type', '==', 'Candidate')
-            ->when($request->input('user_type') != '', function ($query) use ($request) {
-                return $query->where('user_type.user_type', '=', $request->input('user_type'));
-            });
-
-
+            ->where('user_type.user_type', '=', 'Candidate');
+     
         if ($search != "") {
             $user = $user->where(function ($user) use ($search) {
                 $user->where('name', 'like', '%' . $search . '%');
-                $user->orWhere('address', 'like', '%' . $search . '%');
+                $user->orWhere('address1', 'like', '%' . $search . '%');
                 $user->orWhere('email', 'like', '%' . $search . '%');
             });
         }
+   
         $record_total = $user->get();
         $totals       = count($record_total);
         $user->offset($start);
@@ -62,7 +62,7 @@ class UserDetails extends Controller
     {
         $mail_details = [
             //'subject' => 'Testing Application OTP',
-            'url'      => "http://localhost:9000/registration_page/".Crypt::encryptString($request->email).'/'.Crypt::encryptString($request->user_name).'/'.Crypt::encryptString($request->position),
+            'url'      => "http://localhost:9000/registration_page/" . Crypt::encryptString($request->email) . '/' . Crypt::encryptString($request->user_name) . '/' . Crypt::encryptString($request->position),
         ];
         Mail::to($request->email)->send(new InvitationMail($mail_details));
 
@@ -71,7 +71,6 @@ class UserDetails extends Controller
         if (Mail::failures()) {
             $output['dbStatus']  = 'Failure';
             $output['dbMessage'] = 'Error occured';
-            
         } else {
             $output['dbStatus']  = 'SUCCESS';
             $output['dbMessage'] = 'Hr details added.';
@@ -83,40 +82,108 @@ class UserDetails extends Controller
         $decrypted_email = Crypt::decryptString($request->email);
         $decrypted_name = Crypt::decryptString($request->user_name);
         $decrypted_position = Crypt::decryptString($request->position);
-        return view('registration')->with(array('name'=>$decrypted_name,'email'=>$decrypted_email,'position'=>$decrypted_position));
+        return view('registration')->with(array('name' => $decrypted_name, 'email' => $decrypted_email, 'position' => $decrypted_position));
     }
     function uploadAcademicsDetails(Request $request)
-    {
+     {
+    //     $files = $request->file('certificate');
+    //     print_r($files);
 
-         $input = $request->all();
-         print_r($input);
-    //     $count = count($request['board']);
-    //    for($i=0 ; $i<$count ; $i++)
-    //    {
-    //         $candidate_details  = new CandidateAcademics();
-    //         if($request->class[$i] == "10th")
-    //         {
-    //             $academic_type = 1;
-    //         }
-    //         if($request->class[$i] == "12th")
-    //         {
-    //             $academic_type = 2;
-    //         }
-    //         if($request->class[$i] == "graduation")
-    //         {
-    //             $academic_type = 3;
-    //         }
-    //         if($request->class[$i] == "post graduation")
-    //         {
-    //             $academic_type = 4;
-    //         }
-    //         $candidate_details->board  = $request->board[$i];
-    //         $candidate_details->passout_year  =  $request->passout_year[$i];
-    //         $candidate_details->percentage  =   $request->percentage[$i];
-    //         $candidate_details->user_id  =   Session('id');
-    //         $candidate_details->academics_type_id  =   $academic_type;
-    //         $candidate_details->save();
-    //    }
+        // $input = $request->all();
+        // print_r($input);
+            $count = count($request['board']);
+           for($i=0 ; $i<$count ; $i++)
+           {
+                $candidate_academics  = new CandidateAcademics();
+                
+                $candidate_asset_type = new CandidateAssetType();
+
+                if($request->class[$i] == "10th")
+                {
+                    $academic_type = 1;
+                }
+                if($request->class[$i] == "12th")
+                {
+                    $academic_type = 2;
+                }
+                if($request->class[$i] == "graduation")
+                {
+                    $academic_type = 3;
+                }
+                if($request->class[$i] == "post graduation")
+                {
+                    $academic_type = 4;
+                }
+                $candidate_academics->board  = $request->board[$i];
+                $candidate_academics->passout_year  =  $request->passout_year[$i];
+                $candidate_academics->percentage  =   $request->percentage[$i];
+                $candidate_academics->user_id  =   Session('id');
+                $candidate_academics->academics_type_id  =   $academic_type;
+
+                if ($request->hasFile('certificate')) {
+                    $candidate_asset_type = new CandidateAssetType();
+                    $files = $request->file('certificate')[$i];
+                    $filename = $files->getClientOriginalName();
+                    $extension = $files->getClientOriginalExtension();
+                    $new_file_name = $files->hashName();
+                    $store_file = $files->storeAs(storage_path() . '/app/public/', $new_file_name);
+                    
+                    $candidate_asset_type->asset_path = $new_file_name;
+                    $candidate_asset_type->asset_type = "certificate";
+                    $candidate_asset_type->academics_type_id  =   $academic_type;
+                    $candidate_asset_type->user_id  =   Session('id');
+                    $candidate_asset_type->save();
+                }
+                if ($request->hasFile('marksheet')) {
+                    $candidate_asset_type = new CandidateAssetType();
+                    $files = $request->file('marksheet')[$i];
+                    $files = $request->file('certificate')[$i];
+                    $filename = $files->getClientOriginalName();
+                    $extension = $files->getClientOriginalExtension();
+                    $new_file_name = $files->hashName();
+                    $store_file = $files->storeAs(storage_path() . '/app/public/', $new_file_name);
+                    $candidate_asset_type->asset_path = $new_file_name;
+                    $candidate_asset_type->asset_type = "marksheet";
+                    $candidate_asset_type->academics_type_id  =   $academic_type;
+                    $candidate_asset_type->user_id  =   Session('id');
+                    $candidate_asset_type->save();
+                }
+               
+                $candidate_academics->save();
+                
+            }
+            if ($request->hasFile('resume_upload')) {
+                $candidate_details    = new CandidateDetails();
+                $files = $request->file('resume_upload');
+                $filename = $files->getClientOriginalName();
+                $extension = $files->getClientOriginalExtension();
+                $new_file_name = $files->hashName();
+                $store_file = $files->storeAs(storage_path() . '/app/public/', $new_file_name);
+                $candidate_details->resume_path = $new_file_name;
+                
+            }
+            if ($request->hasFile('pan_upload')) {
+                
+                $files = $request->file('pan_upload');
+                $filename = $files->getClientOriginalName();
+                $extension = $files->getClientOriginalExtension();
+                $new_file_name = $files->hashName();
+                $store_file = $files->storeAs(storage_path() . '/app/public/', $new_file_name);
+                $candidate_details->pan_path = $new_file_name;
+            }
+            if ($request->hasFile('adhar_upload')) {
+                 
+                $files = $request->file('adhar_upload');
+                $filename = $files->getClientOriginalName();
+                $extension = $files->getClientOriginalExtension();
+                $new_file_name = $files->hashName();
+                $store_file = $files->storeAs(storage_path() . '/app/public/', $new_file_name);
+                $candidate_details->adhar_path = $new_file_name;
+            }
+            $candidate_details->user_id = Session('id');
+            $candidate_details->save();
+
+        
         // foreach($request as $request)
         // {
         //     $candidate_details->board  = $request;
@@ -125,20 +192,77 @@ class UserDetails extends Controller
         //     $candidate_details->user_id  =   Session('id');
         //    $candidate_details->save();
         // }
-        
-        
+
+
         // $candidate_details  = new CandidateAcademics();
         // $candidate_details->board = $request->board_10th;
         // $candidate_details->board = $request->board_12th;
         // $candidate_details->board = $request->board_graduation;
         // $candidate_details->board = $request->board_pg;
-        
+
+    }
+    function candidateDocumentPage(Request $request,$id)
+    {
+        session()->put('user_id', $id);
+        return response()->json([
+            'redirect' => url('candidateAcademicDetails')
+        ]);
+        // return view("candidateAcademicDetails")->render();
+    }
+    function fetchCandidateDocument(Request $request)
+    {
+        $output         = array("aaData" => array(), 'dbStatus' => '', 'recordsTotal' => 0, 'recordsFiltered' => 0);
+        //echo($request->input('select_user'));
+        $start          = $request->input('start');
+        $limit          = $request->input('length');
+        $search_arr     = $request->input('search');
+        $search         = $search_arr['value'];
+
+        $user = CandidateAcademics::select('academic_type.academic_type','candidate_academics.board', 'candidate_academics.passout_year', 'candidate_academics.percentage')
+            ->join('academic_type', 'candidate_academics.academics_type_id', '=', 'academic_type.id')
+            ->where('candidate_academics.user_id', '=', $request->input('user_id'));
+     
+        if ($search != "") {
+            $user = $user->where(function ($user) use ($search) {
+                $user->where('name', 'like', '%' . $search . '%');
+                $user->orWhere('address1', 'like', '%' . $search . '%');
+                $user->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+   
+        $record_total = $user->get();
+        $totals       = count($record_total);
+        $user->offset($start);
+        $user->limit($limit);
+        $user = $user->get();
+        $record_filtered = count($user);
+        $output['recordsTotal'] = $totals;
+        $output['recordsFiltered'] = $record_filtered;
+        header('Content-Type: application/json; charset=utf-8');
+
+        foreach ($user as $row) {
+            $output['aaData'][] = $row;
+        }
+        echo json_encode($output);
+    }
+    function candidateMarksheetPage(Request $request,$user_id,$academic_type)
+    {   
+        $fetch_marksheet = CandidateAssetType::select('candidate_asset_type.asset_path')
+        ->where('user_id','=',$user_id)
+        ->join('academic_type', 'candidate_asset_type.academics_type_id', '=', 'academic_type.id')
+        ->where('asset_type','=','marksheet')
+        ->where('academic_type.academic_type','=',$academic_type)
+        ->get();
+    
+        $document = (asset('storage') . '/' . $fetch_marksheet[0]['asset_path']);
+        $output   = "<img class='img-fluid pad' style='height:200px;width:400px' src=" . "$document" . ">";
+        return response()->json($output);
     }
     function uploadDocument(Request $request)
     {
         $input = $request->all();
         print_r($request->hasfile('marksheet'));
-        
+
         // if ($request->hasfile('marksheet_10th_file')) {
         //     $marksheet_10th_file      =   $request->file('marksheet_10th_file');
         //     $image_name =   $marksheet_10th_file->getClientOriginalName();

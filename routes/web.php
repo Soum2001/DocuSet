@@ -33,6 +33,9 @@ Route::get('/login', function () {
 Route::get('registration_page', function () {
     return view('registration')->with(array());
  });
+ Route::get('candidateAcademicDetails', function () {
+    return view('candidateDetails')->with(array());
+ });
 Route::get('registration_page/{email}/{user_name}/{position}',[UserDetails::class, 'registerCandidate']);
 
 
@@ -51,6 +54,9 @@ Route::group(['middleware' => ['web', 'user_auth']], function () {
     Route::post('submit_candidate_details', [UserDetails::class, 'submitCandidateDetails']);
     Route::post('upload_academics_details', [UserDetails::class, 'uploadAcademicsDetails']);
     Route::post('upload_document', [UserDetails::class, 'uploadDocument']);
+    Route::post('candidate_document_page/{id}', [UserDetails::class, 'candidateDocumentPage']);
+    Route::post('candidate_document', [UserDetails::class, 'fetchCandidateDocument']);
+    Route::post('candidate_marksheet_page/{user_id}/{academic_type}', [UserDetails::class, 'candidateMarksheetPage']);
 });
 Route::get('logout', [AuthController::class, 'logout']);
 //Route::get('select_hr',[RegistrationController::class,'selectHr']);

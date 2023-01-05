@@ -13,20 +13,19 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="col-sm-2">
-                                        <button type="button" class="btn btn-block btn-outline-primary" id="add_more_qualification">Add <span><i class="fas fa-plus"></i></span></button>
+                                        <button type="button" class="btn btn-block btn-outline-primary" id="add_more_qualification">Add More Qualification <span><i class="fas fa-plus"></i></span></button>
                                     </div>
                                 </div>
                                 <div class="col-md-12" id="col">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">General Elements</h3>
+                                            <h3 class="card-title">Add Qualification Details</h3>
                                         </div>
 
                                         <div class="card-body">
 
                                             <div class="row">
                                                 <div class="col-sm-6">
-
                                                     <div class="form-group">
                                                         <label>Select Qualification</label>
                                                         <select class="form-control" name="class[]" id="sel_qual_1">
@@ -80,49 +79,62 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div id="selected_10th_marksheet"></div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group control-group increment">
+                                                        <div id="selected_10th_certificate"></div>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div id="selected_10th_marksheet"></div>
-                                                    </div>
-                                                </div> -->
-
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group control-group increment">
+                                                    <div id="selected_10th_certificate"></div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
-                                </div>
-                                <div id="div_append">
+                                    <!-- <div class="row">
+                                        <div class="col-sm-6">
+                                            <div id="selected_10th_marksheet"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div id="selected_10th_certificate"></div>
+                                        </div>
+                                    </div> -->
 
                                 </div>
                             </div>
+                            <div id="div_append">
 
-                        </div>
-                    </div>
-                    <h4>Upload Resume</h4>
-                    <div class="upload-field">
-                        <div class="btn_upload">
-                            <button class="btn btn-primary"><input type="file" id="resume_upload" name="resume_upload" onchange="loadresume(this)"></button>
-                        </div>
-                    </div>
-                    <h4>Upload Pan</h4>
-                    <div class="upload-field">
-                        <div class="btn_upload">
-                            <button class="btn btn-primary"><input type="file" id="pan_upload" name="pan_upload" onchange="loadpan(this)"></button>
-                        </div>
-                    </div>
-                    <h4>Upload Adhar<h4>
-                            <div class="upload-field">
-                                <div class="btn_upload">
-                                    <button class="btn btn-primary"><input type="file" id="adhar_upload" name="adhar_upload" onchange="loadadhar(this)"></button>
-                                </div>
                             </div>
-                            <br>
-                            <button type="button" class="btn btn-primary" style="margin-left:751px" onclick="submit_academics_details()">Submit</button>
-                </form>
+                        </div>
+
+                    </div>
             </div>
-        </section>
+            <h4>Upload Resume</h4>
+            <div class="upload-field">
+                <div class="btn_upload">
+                    <button class="btn btn-primary"><input type="file" id="resume_upload" name="resume_upload" onchange="loadresume(this)"></button>
+                </div>
+            </div>
+            <h4>Upload Pan</h4>
+            <div class="upload-field">
+                <div class="btn_upload">
+                    <button class="btn btn-primary"><input type="file" id="pan_upload" name="pan_upload" onchange="loadpan(this)"></button>
+                </div>
+            </div>
+            <h4>Upload Adhar<h4>
+                    <div class="upload-field">
+                        <div class="btn_upload">
+                            <button class="btn btn-primary"><input type="file" id="adhar_upload" name="adhar_upload" onchange="loadadhar(this)"></button>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary" style="margin-left:751px" onclick="submit_academics_details()">Submit</button>
+                    </form>
+    </div>
+    </section>
     </div>
     @include('layouts.footer')
     <script src="{{asset('assets/js/academicDetails.js')}}"></script>
