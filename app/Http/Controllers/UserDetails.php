@@ -54,6 +54,7 @@ class UserDetails extends Controller
 
         foreach ($user as $row) {
             $output['aaData'][] = $row;
+            // $output['aaData'][] ="<button id='view_candidate_document' action ='view_candidate_document/'"+$row->id+ "class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>";
         }
         echo json_encode($output);
     }
@@ -86,12 +87,9 @@ class UserDetails extends Controller
     }
     function uploadAcademicsDetails(Request $request)
      {
-    //     $files = $request->file('certificate');
-    //     print_r($files);
-
-        // $input = $request->all();
-        // print_r($input);
-            $count = count($request['board']);
+     
+           $count = count($request['board']);
+           $candidate_details    = new CandidateDetails();
            for($i=0 ; $i<$count ; $i++)
            {
                 $candidate_academics  = new CandidateAcademics();
@@ -153,7 +151,7 @@ class UserDetails extends Controller
                 
             }
             if ($request->hasFile('resume_upload')) {
-                $candidate_details    = new CandidateDetails();
+               
                 $files = $request->file('resume_upload');
                 $filename = $files->getClientOriginalName();
                 $extension = $files->getClientOriginalExtension();
@@ -181,33 +179,28 @@ class UserDetails extends Controller
                 $candidate_details->adhar_path = $new_file_name;
             }
             $candidate_details->user_id = Session('id');
-            $candidate_details->save();
-
-        
-        // foreach($request as $request)
-        // {
-        //     $candidate_details->board  = $request;
-        //     $candidate_details->passout_year  =  $request->passout_year;
-        //     $candidate_details->percentage  =   $request->percentage;
-        //     $candidate_details->user_id  =   Session('id');
-        //    $candidate_details->save();
-        // }
-
-
-        // $candidate_details  = new CandidateAcademics();
-        // $candidate_details->board = $request->board_10th;
-        // $candidate_details->board = $request->board_12th;
-        // $candidate_details->board = $request->board_graduation;
-        // $candidate_details->board = $request->board_pg;
-
+            $candidate_details_save = $candidate_details->save();
+            if ($candidate_details_save) {
+                $output['dbStatus'] =  'SUCCESS';
+                $output['dbMessage'] =  'Document Uploaded';
+            } else {
+                $output['dbStatus'] =  'FAILURE';
+                $output['dbMessage'] =  'Some error Occured';
+            }
+            return response()->json($output);
+            
     }
     function candidateDocumentPage(Request $request,$id)
     {
-        session()->put('user_id', $id);
-        return response()->json([
-            'redirect' => url('candidateAcademicDetails')
-        ]);
-        // return view("candidateAcademicDetails")->render();
+        session()->put('user_id', $id);  
+        $user_details = User::select('name', 'address1', 'address2', 'email', 'phone_no1', 'phone_no2', 'id', 'city', 'state', 'zip')
+        ->where('id', '=',$id)
+        ->get();
+        // return response()->json([
+        //     'redirect' => url('candidateAcademicDetails'),
+        //     'user_details' => $user_details
+        // ]);
+         return view("candidateDetails")->with(array('user_details'=>$user_details));
     }
     function fetchCandidateDocument(Request $request)
     {
@@ -229,7 +222,6 @@ class UserDetails extends Controller
                 $user->orWhere('email', 'like', '%' . $search . '%');
             });
         }
-   
         $record_total = $user->get();
         $totals       = count($record_total);
         $user->offset($start);
@@ -253,8 +245,9 @@ class UserDetails extends Controller
         ->where('asset_type','=','marksheet')
         ->where('academic_type.academic_type','=',$academic_type)
         ->get();
-    
+       
         $document = (asset('storage') . '/' . $fetch_marksheet[0]['asset_path']);
+        //$document = storage_path('public/' . $fetch_marksheet[0]['asset_path']);
         $output   = "<img class='img-fluid pad' style='height:200px;width:400px' src=" . "$document" . ">";
         return response()->json($output);
     }

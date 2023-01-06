@@ -1,0 +1,1 @@
+<img class='img-fluid pad' style='height:200px;width:400px' src={{$document}}>

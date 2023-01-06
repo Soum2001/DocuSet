@@ -20,6 +20,7 @@
                                     <div class="card card-primary">
                                         <div class="card-header">
                                             <h3 class="card-title">Add Qualification Details</h3>
+                                            
                                         </div>
 
                                         <div class="card-body">
@@ -69,11 +70,13 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
+                                                    <label>Marksheet</label>
                                                     <div class="input-group control-group increment">
                                                         <input type="file" id="marksheet_1" name="marksheet[]" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
+                                                    <label>Certificate</label>
                                                     <div class="input-group control-group increment">
                                                         <input type="file" id="certificate_1" name="certificate[]" class="form-control" multiple="multiple">
                                                     </div>
@@ -111,28 +114,28 @@
                         </div>
 
                     </div>
-            </div>
-            <h4>Upload Resume</h4>
-            <div class="upload-field">
-                <div class="btn_upload">
-                    <button class="btn btn-primary"><input type="file" id="resume_upload" name="resume_upload" onchange="loadresume(this)"></button>
-                </div>
-            </div>
-            <h4>Upload Pan</h4>
-            <div class="upload-field">
-                <div class="btn_upload">
-                    <button class="btn btn-primary"><input type="file" id="pan_upload" name="pan_upload" onchange="loadpan(this)"></button>
-                </div>
-            </div>
-            <h4>Upload Adhar<h4>
+                    <h4>Upload Resume</h4>
+                    <div class="upload-field">
+                        <div class="btn_upload">
+                            <button class="btn btn-primary"><input type="file" id="resume_upload" name="resume_upload" onchange="loadresume(this)"></button>
+                        </div>
+                    </div>
+                    <h4>Upload Pan</h4>
+                    <div class="upload-field">
+                        <div class="btn_upload">
+                            <button class="btn btn-primary"><input type="file" id="pan_upload" name="pan_upload" onchange="loadpan(this)"></button>
+                        </div>
+                    </div>
+                    <h4>Upload Adhar</h4>
                     <div class="upload-field">
                         <div class="btn_upload">
                             <button class="btn btn-primary"><input type="file" id="adhar_upload" name="adhar_upload" onchange="loadadhar(this)"></button>
                         </div>
                     </div>
-                    <br>
-                    <button type="button" class="btn btn-primary" style="margin-left:751px" onclick="submit_academics_details()">Submit</button>
-                    </form>
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary" style="margin-left:751px" onclick="submit_academics_details()">Submit</button>
+            </form>
     </div>
     </section>
     </div>

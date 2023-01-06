@@ -101,10 +101,11 @@ $(document).ready(function () {
   $("#add_more_qualification").click(function () {
     let row = ++count;
     $("#hid_row_count").val(row);
-    $("#div_append").append(`<div class="col-md-12" id="col">
+    $("#div_append").append(`<div class="col-md-12" id="div_{${row}}">
       <div class="card card-primary">
           <div class="card-header">
               <h3 class="card-title">Add Qualification Details</h3>
+              <h3 class="card-title" style="float:right" id="dismiss_div"><i class="fas fa-times"></i></h3>
           </div>
           <div class="card-body">
                   <div class="row">
@@ -153,11 +154,13 @@ $(document).ready(function () {
                   </div>
                   <div class="row">
                       <div class="col-sm-6">
+                      <label>Marksheet</label>
                           <div class="input-group control-group increment">
                               <input type="file" id="marksheet_${row}" name="marksheet[]" class="form-control">
                           </div>
                       </div>
                       <div class="col-sm-6">
+                      <label>Certificate</label>
                           <div class="input-group control-group increment">
                               <input type="file" id="certificate_${row}" name="certificate[]" class="form-control" multiple="multiple">
                           </div>
@@ -167,45 +170,47 @@ $(document).ready(function () {
       </div>
   </div>`);
   })
-  
-  $("#upload_document").submit(function (e) {
-    e.preventDefault();
-    var formData = new FormData(upload_document);
-    formData.append('marksheet_10th_file', marksheet_10th_file);
-    formData.append('marksheet_12th_file', marksheet_12th_file);
-    formData.append('marksheet_graduation_file', marksheet_graduation_file);
-    formData.append('marksheet_pg_file', marksheet_pg_file);
-    formData.append('certificate_10th_file', certificate_10th_file);
-    formData.append('certificate_12th_file', certificate_12th_file);
-    formData.append('certificate_graduation_file', certificate_graduation_file);
-    formData.append('certificate_pg_file', certificate_pg_file);
-    formData.append('resume', document.getElementById('resume_upload').value);
-    formData.append('pan', document.getElementById('pan_upload').value);
-    formData.append('adhar', document.getElementById('adhar_upload').value);
+  // $("#dismiss_div").click(function(){
+  //   alert("hi");
+  // })
+  // $("#upload_document").submit(function (e) {
+  //   e.preventDefault();
+  //   var formData = new FormData(upload_document);
+  //   formData.append('marksheet_10th_file', marksheet_10th_file);
+  //   formData.append('marksheet_12th_file', marksheet_12th_file);
+  //   formData.append('marksheet_graduation_file', marksheet_graduation_file);
+  //   formData.append('marksheet_pg_file', marksheet_pg_file);
+  //   formData.append('certificate_10th_file', certificate_10th_file);
+  //   formData.append('certificate_12th_file', certificate_12th_file);
+  //   formData.append('certificate_graduation_file', certificate_graduation_file);
+  //   formData.append('certificate_pg_file', certificate_pg_file);
+  //   formData.append('resume', document.getElementById('resume_upload').value);
+  //   formData.append('pan', document.getElementById('pan_upload').value);
+  //   formData.append('adhar', document.getElementById('adhar_upload').value);
 
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: "upload_document",
-      type: "post",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (response) {
-        var jsonData = JSON.parse(JSON.stringify(response));
-        console.log(response);
-        if (response.dbStatus == 'SUCCESS') {
-          $('#exampleModalCenter').modal('hide');
-          toastr.success(jsonData.dbMessage);
-          $('#dtblUser').DataTable().ajax.reload();
+  //   $.ajax({
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     url: "upload_document",
+  //     type: "post",
+  //     data: formData,
+  //     processData: false,
+  //     contentType: false,
+  //     success: function (response) {
+  //       var jsonData = JSON.parse(JSON.stringify(response));
+  //       console.log(response);
+  //       if (response.dbStatus == 'SUCCESS') {
+  //         $('#exampleModalCenter').modal('hide');
+  //         toastr.success(jsonData.dbMessage);
+  //         $('#dtblUser').DataTable().ajax.reload();
 
-        } else if (response.dbStatus == 'FAILURE') {
-          toastr.error(response.dbMessage);
-        }
-      },
-    });
-  })
+  //       } else if (response.dbStatus == 'FAILURE') {
+  //         toastr.error(response.dbMessage);
+  //       }
+  //     },
+  //   });
+  // })
 });
 function submit_academics_details() {
   var academic_details = document.getElementById("academic_details");
@@ -223,9 +228,7 @@ function submit_academics_details() {
       var jsonData = JSON.parse(JSON.stringify(response));
       console.log(response);
       if (response.dbStatus == 'SUCCESS') {
-        $('#exampleModalCenter').modal('hide');
         toastr.success(jsonData.dbMessage);
-        $('#dtblUser').DataTable().ajax.reload();
 
       } else if (response.dbStatus == 'FAILURE') {
         toastr.error(response.dbMessage);

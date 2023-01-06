@@ -80,46 +80,56 @@ $(document).ready(function () {
             { "data": "address1", "name": "address1", "sWidth": "20%" },
             { "data": "user_type", "name": "user_type", "sWidth": "10%" },
             {
-                "sName": "action",
-                "data": null,
-                "className": "text-center",
-                "defaultContent": "<button id='view_candidate_document' action ='view_candidate_document' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>"
-            }
+                'sName': "action",
+                'className': "text-center",
+                'data': null,
+                'render': function (data, type, row) {
+                    return "<a href='candidate_document_page/"+row.id+"'><button id='view_candidate_document' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button></a>";
+                }
+            },
 
         ],
     });
-    $('#dtblCandidate tbody').on('click', 'button[id=view_candidate_document]', function (event) {
-        var data = dtblCandidate.row($(this).parents('tr')).data();
-        var oTable = $('#dtblCandidate').dataTable();   
-        var row;
-        if (event.target.tagName == "BUTTON")
-            row = event.target.parentNode.parentNode;
-        else if (event.target.tagName == "I")
-            row = event.target.parentNode.parentNode.parentNode;
-            console.log(oTable.fnGetData(row));
-         var id = oTable.fnGetData(row).id;
-       
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "candidate_document_page/"+id,
-            type: "post",
-            data: id,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                if(data.redirect)
-                {
-                    window.location = data.redirect;
-                }
+    // $('#dtblCandidate tbody').on('click', 'button[id=view_candidate_document]', function (event) {
+    //     var data = dtblCandidate.row($(this).parents('tr')).data();
+    //     var oTable = $('#dtblCandidate').dataTable();
+    //     var row;
+    //     if (event.target.tagName == "BUTTON")
+    //         row = event.target.parentNode.parentNode;
+    //     else if (event.target.tagName == "I")
+    //         row = event.target.parentNode.parentNode.parentNode;
+    //     console.log(oTable.fnGetData(row));
+    //     var id = oTable.fnGetData(row).id;
 
-                //var jsonData = JSON.parse(JSON.stringify(response));
-              
-            },
-        });
-    })
-    $("#candidate_document").click(function(){
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: "candidate_document_page/" + id,
+    //         type: "post",
+    //         data: id,
+    //         processData: false,
+    //         contentType: false,
+    //         success: function (data) {
+    //         //console.log(data.user_details[0].name);
+    //             if(data.redirect)
+    //             {
+    //                 $('#name').val(data.user_details[0].name);
+    //                 $('#email').val(data.user_details[0].email);
+    //                 $('#address').val(data.user_details[0].address1);
+    //                 $('#phone_no').val(data.user_details[0].phone_no1);
+    //                 $('#city').val(data.user_details[0].city);
+    //                 $('#state').val(data.user_details[0].state);
+    //                 $('#zip').val(data.user_details[0].zip);
+    //                 window.location = data.redirect;
+    //             }
+
+    //             //var jsonData = JSON.parse(JSON.stringify(response));
+
+    //         },
+    //     });
+    // })
+    $("#candidate_document").click(function () {
         var user_id = $("#user_id").val();
         var dtblCandidateDocument = $('#dtblCandidateDocument').DataTable({
             "lengthMenu": [
@@ -142,10 +152,10 @@ $(document).ready(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     'Accept': 'application/json',
                 },
-                "url": "candidate_document",
+                "url": "../candidate_document",
                 "type": "post",
-                "data": {user_id:user_id},
-    
+                "data": { user_id: user_id },
+
             },
             "sDom": "<'row'<'col-lg-1 col-md-1 col-sm-1 dtblfilter'>'row'<'col-lg-5 col-md-4 col-sm-4 dtblPtm'>'row'<'col-xs-4 col-sm-3 'l><'col-lg-1 col-md-12 col-sm-12'><'col-md-4 col-sm-4'>f>t<'row'<'col-lg-6 col-md-12 col-sm-12' <'row' <'col-lg-6 col-md-12 col-sm-12' i>>><'col-lg-6 col-md-12 col-sm-12'p>>",
             "aoColumns": [
@@ -165,13 +175,13 @@ $(document).ready(function () {
                     "className": "text-center",
                     "defaultContent": "<button id='view_certificate' action ='view_certificate' class='btn btn-info btn-sm'><i class='fa fa-eye' ></i></button>"
                 }
-    
+
             ],
         });
     });
     $('#dtblCandidateDocument tbody').on('click', 'button[id=view_marksheet]', function (event) {
-       // var data = dtblCandidateDocument.row($(this).parents('tr')).data();
-      
+        // var data = dtblCandidateDocument.row($(this).parents('tr')).data();
+
         var oTable = $('#dtblCandidateDocument').dataTable();
         var row;
         if (event.target.tagName == "BUTTON")
@@ -185,22 +195,22 @@ $(document).ready(function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "candidate_marksheet_page/"+user_id+'/'+academic_type,
+            url: "../candidate_marksheet_page/" + user_id + '/' + academic_type,
             type: "post",
             data: user_id,
             processData: false,
             contentType: false,
-             success: function (response) {
+            success: function (response) {
                 $("#document_modal").modal("show");
-                jQuery('#document').html(response);  
-            //     if(data.redirect)
-            //     {
-            //         window.location = data.redirect;
-            //     }
+                jQuery('#document').html(response);
+                //     if(data.redirect)
+                //     {
+                //         window.location = data.redirect;
+                //     }
 
-            //     //var jsonData = JSON.parse(JSON.stringify(response));
-              
-             },
+                //     //var jsonData = JSON.parse(JSON.stringify(response));
+
+            },
         });
 
     });
@@ -231,7 +241,7 @@ $(document).ready(function () {
         var state = oTable.fnGetData(row).state;
         var zip = oTable.fnGetData(row).zip;
         //console.log(oTable.fnGetData(row).username);
-        
+
         $('#user_id').val(oTable.fnGetData(row).id);
 
         $('#name').val(user_name);
@@ -243,7 +253,7 @@ $(document).ready(function () {
         $('#city').val(city);
         $('#state').val(state);
         $('#zip').val(zip);
-      
+
         $('#exampleModalCenter').modal('show');
     });
 
@@ -263,7 +273,7 @@ function invite_candidate() {
 function submit_hr_details() {
     var hr_details = document.getElementById("hr_details");
     var formData = new FormData(hr_details);
-    formData.append('user_type_id',2);
+    formData.append('user_type_id', 2);
     var id = $('#user_id').val();
     if (id != "") {
         $.ajax({
@@ -315,38 +325,36 @@ function submit_hr_details() {
     }
 
 }
-function Send_candidate_mail(){
+function Send_candidate_mail() {
     var name = document.getElementById('user_name').value;
-    var email  = document.getElementById('mail_id').value;
-    var position  = document.getElementById('position').value;
+    var email = document.getElementById('mail_id').value;
+    var position = document.getElementById('position').value;
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Accept': 'application/json', 
+            'Accept': 'application/json',
         },
-        type:'POST',
-        url:'mail_invitation',
-        data:{user_name:name,email:email,position:position},
-        
-        success:function(response){
-           console.log(response);
-            var jsonData=JSON.parse(JSON.stringify(response));
+        type: 'POST',
+        url: 'mail_invitation',
+        data: { user_name: name, email: email, position: position },
+
+        success: function (response) {
+            console.log(response);
+            var jsonData = JSON.parse(JSON.stringify(response));
             console.log(jsonData);
-            if(jsonData.dbStatus)
-            {
+            if (jsonData.dbStatus) {
                 $('#invite_candidate_modal').modal('hide');
-               toastr.success(jsonData.dbMessage);
-            }else{
+                toastr.success(jsonData.dbMessage);
+            } else {
                 toastr.error(jsonData.dbMessage);
             }
         }
     });
 }
-function register_candidate()
-{
+function register_candidate() {
     var form = document.getElementById("form");
     var formData = new FormData(form);
-    formData.append('user_type_id',3);
+    formData.append('user_type_id', 3);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

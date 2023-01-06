@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\CandidateAcademics;
 use Illuminate\Contracts\Session\Session;
 
 use Illuminate\Support\Facades\Hash;
@@ -45,7 +46,13 @@ class UserListing extends Controller
         } elseif ($user_type == 'Human Resource') {
             return view('userDetails');
         } elseif ($user_type == 'Candidate') {
-            return view('candidateAcademicDetails');
+            $candidate_academics = CandidateAcademics::select('academic_type.academic_type','candidate_academics.board', 'candidate_academics.passout_year', 'candidate_academics.percentage')
+            ->join('academic_type', 'candidate_academics.academics_type_id', '=', 'academic_type.id')
+            ->where('candidate_academics.user_id', '=', Session('id'))
+            ->get();
+           
+            $count=count($candidate_academics);
+            return view('candidateAcademicDetails')->with(array('count'=>$count,'candidate_academic_details'=>$candidate_academics));
         }
     }
     function loadUserDetails(Request $request)

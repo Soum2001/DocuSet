@@ -204,13 +204,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="row" id="password_div">
                                         <h4>Password</h4>
                                         <div class="col-6">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Password" id="password" name="password">
+                                                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-lock"></span>
@@ -220,7 +219,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Confirm Password" id="re_password" name="re_password">
+                                                <input type="password" class="form-control" placeholder="Confirm Password" id="re_password" name="re_password">
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-lock"></span>

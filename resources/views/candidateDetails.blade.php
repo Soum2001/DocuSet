@@ -22,48 +22,51 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="activity">
                                         <form class="form-horizontal">
+                                            
+                                            @foreach($user_details as $user)
                                             <div class="form-group row">
                                                 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                 <div class="col-sm-10">
-                                                    <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                                    <input type="text" class="form-control" id="name" placeholder="Name" value="{{$user->name}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                                 <div class="col-sm-10">
-                                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                                    <input type="email" class="form-control" id="email" placeholder="Email" value="{{$user->email}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Address</label>
+                                                <label class="col-sm-2 col-form-label">Address</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputName2" placeholder="Address">
+                                                    <input type="text" class="form-control" id="address" placeholder="Address" value="{{$user->address1}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputSkills" class="col-sm-2 col-form-label">Phone No</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputSkills" placeholder="Phone no">
+                                                    <input type="tel" class="form-control" id="phone_no" placeholder="Phone no" value="{{$user->phone_no1}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputSkills" class="col-sm-2 col-form-label">City</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputSkills" placeholder="City">
+                                                    <input type="text" class="form-control" id="city" placeholder="City" value="{{$user->city}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputSkills" class="col-sm-2 col-form-label">State</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputSkills" placeholder="State">
+                                                    <input type="text" class="form-control" id="state" placeholder="State" value="{{$user->state}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputSkills" class="col-sm-2 col-form-label">Zip</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputSkills" placeholder="Zip">
+                                                    <input type="text" class="form-control" id="zip" placeholder="Zip" value="{{$user->zip}}">
                                                 </div>
                                             </div>
+                                            @endforeach
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
                                                     <div class="checkbox">
@@ -75,7 +78,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                                    <button type="submit" class="btn btn-danger">Edit</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -115,20 +118,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add HR Details</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Document</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
                     <div class="modal-body">
-                      <div id="document">
+                        <div id="document">
 
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" id="edit_user_details" onclick="submit_hr_details()">Add HR</button>
+                        </div>
                     </div>
                 </div>
             </div>
