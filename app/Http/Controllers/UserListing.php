@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\CandidateAcademics;
+use App\Models\CandidateAssetType;
 use Illuminate\Contracts\Session\Session;
 
 use Illuminate\Support\Facades\Hash;
@@ -50,9 +51,12 @@ class UserListing extends Controller
             ->join('academic_type', 'candidate_academics.academics_type_id', '=', 'academic_type.id')
             ->where('candidate_academics.user_id', '=', Session('id'))
             ->get();
-           
+           $candidate_document = CandidateAssetType::select('academic_type.academic_type','candidate_asset_type.asset_path','candidate_asset_type.asset_type','candidate_asset_type.user_id')
+           ->join('academic_type', 'candidate_asset_type.academics_type_id', '=', 'academic_type.id')
+           ->where('user_id','=',Session('id'))
+           ->get(); 
             $count=count($candidate_academics);
-            return view('candidateAcademicDetails')->with(array('count'=>$count,'candidate_academic_details'=>$candidate_academics));
+            return view('candidateAcademicDetails')->with(array('count'=>$count,'candidate_academic_details'=>$candidate_academics,'document'=>$candidate_document));
         }
     }
     function loadUserDetails(Request $request)

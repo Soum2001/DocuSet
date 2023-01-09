@@ -66,6 +66,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## instruction to set up this app
 
+To install the laravel project run this command "composer create-project laravel/laravel example-app"
 Include docker-compose.yml file.
 To run this app run docker-compose up.
 To clear cache run php artisan cache:clear.
+Migrate table through this by running "php artisan migrate".
+To run seeder use "php artisan db:seed --class=seeder name"

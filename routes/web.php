@@ -57,6 +57,8 @@ Route::group(['middleware' => ['web', 'user_auth']], function () {
     Route::get('candidate_document_page/{id}', [UserDetails::class, 'candidateDocumentPage']);
     Route::post('candidate_document', [UserDetails::class, 'fetchCandidateDocument']);
     Route::post('candidate_marksheet_page/{user_id}/{academic_type}', [UserDetails::class, 'candidateMarksheetPage']);
+    Route::get('download/{file}/{user_id}', [UserDetails::class, 'download']);
+
 });
 Route::get('logout', [AuthController::class, 'logout']);
 //Route::get('select_hr',[RegistrationController::class,'selectHr']);

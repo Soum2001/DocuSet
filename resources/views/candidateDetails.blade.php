@@ -1,5 +1,4 @@
 @include('layouts.header')
-
 <body class="hold-transition layout-top-nav">
     @include('layouts.navbar')
     <div class="wrapper">
@@ -21,8 +20,7 @@
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="activity">
-                                        <form class="form-horizontal">
-                                            
+                                        <form class="form-horizontal">              
                                             @foreach($user_details as $user)
                                             <div class="form-group row">
                                                 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
